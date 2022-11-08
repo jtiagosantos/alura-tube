@@ -56,8 +56,17 @@ export const utils = {
   w: (value: Stitches.PropertyValue<'width'>) => ({
     width: value,
   }),
+  maxW: (value: Stitches.PropertyValue<'maxWidth'>) => ({
+    maxWidth: value,
+  }),
   h: (value: Stitches.PropertyValue<'height'>) => ({
     height: value,
+  }),
+  maxH: (value: Stitches.PropertyValue<'maxHeight'>) => ({
+    maxHeight: value,
+  }),
+  flexDir: (value: Stitches.PropertyValue<'flexDirection'>) => ({
+    flexDirection: value,
   }),
   square: (value: Stitches.PropertyValue<'width' | 'height'>) => ({
     width: value,
