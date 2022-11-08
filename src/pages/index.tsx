@@ -1,3 +1,4 @@
+import { useState, useId } from 'react';
 import Image from 'next/image';
 
 import { styled } from '@/common/styles/theme';
@@ -9,7 +10,8 @@ import {
   Video,
   Playlist,
   Favorite,
-} from '@/common/components';
+} from '@/common/styles/components';
+import { InputSearch } from '@/common/components';
 
 import { playlists } from '@/mock/playlists.mock';
 import { favorites } from '@/mock/favorites.mock';
@@ -36,6 +38,8 @@ export default function Home() {
     'jogos' | 'front-end' | 'back-end',
   ];
 
+  const [search, setSearch] = useState('');
+
   return (
     <>
       <Header.Root>
@@ -45,6 +49,11 @@ export default function Home() {
             width={120}
             height={24}
             alt="AluraTube logo"
+          />
+          <InputSearch
+            placeholder="Pesquisar"
+            value={search}
+            onChange={({ target }) => setSearch(target.value)}
           />
         </Header.Top>
         <Banner />
@@ -69,20 +78,24 @@ export default function Home() {
       <Main>
         <Playlist.Group>
           {playlistsName.map((name) => (
-            <Playlist.Root>
+            <Playlist.Root key={name}>
               <Playlist.Title>{name}</Playlist.Title>
               <Playlist.Videos>
-                {playlists[name].map((video) => (
-                  <Video.Root>
-                    <Video.Thumbnail
-                      src={video.thumb}
-                      width={210}
-                      height={118}
-                      alt={video.title}
-                    />
-                    <Video.Title>{video.title}</Video.Title>
-                  </Video.Root>
-                ))}
+                {playlists[name]
+                  .filter((video) =>
+                    video.title.toLowerCase().includes(search.toLowerCase()),
+                  )
+                  .map((video) => (
+                    <Video.Root key={video.url}>
+                      <Video.Thumbnail
+                        src={video.thumb}
+                        width={210}
+                        height={118}
+                        alt={video.title}
+                      />
+                      <Video.Title>{video.title}</Video.Title>
+                    </Video.Root>
+                  ))}
               </Playlist.Videos>
             </Playlist.Root>
           ))}
@@ -92,7 +105,7 @@ export default function Home() {
           <FavoritesTitle>AluraTubes favoritos</FavoritesTitle>
           <Favorite.Group>
             {favorites.map((favorite) => (
-              <Favorite.Root>
+              <Favorite.Root key={favorite.name}>
                 <Favorite.Avatar
                   src={favorite.image}
                   width={80}
