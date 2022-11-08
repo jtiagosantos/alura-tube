@@ -1,6 +1,9 @@
 import type * as Stitches from '@stitches/react';
 
 export const utils = {
+  m: (value: Stitches.PropertyValue<'margin'>) => ({
+    margin: value,
+  }),
   ml: (value: Stitches.PropertyValue<'marginLeft'>) => ({
     marginLeft: value,
   }),
@@ -20,6 +23,9 @@ export const utils = {
   my: (value: Stitches.PropertyValue<'margin'>) => ({
     marginTop: value,
     marginBottom: value,
+  }),
+  p: (value: Stitches.PropertyValue<'padding'>) => ({
+    padding: value,
   }),
   pl: (value: Stitches.PropertyValue<'paddingLeft'>) => ({
     paddingLeft: value,
@@ -43,6 +49,9 @@ export const utils = {
   }),
   br: (value: Stitches.PropertyValue<'borderRadius'>) => ({
     borderRadius: value,
+  }),
+  bg: (value: Stitches.PropertyValue<'background'>) => ({
+    background: value,
   }),
   w: (value: Stitches.PropertyValue<'width'>) => ({
     width: value,

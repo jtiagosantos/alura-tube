@@ -3,6 +3,8 @@ import { createStitches } from '@stitches/react';
 import { colors } from './colors.theme';
 import { fontSizes, fontWeights } from './fonts.theme';
 import { space } from './space.theme';
+import { sizes } from './sizes.theme';
+import { radii } from './radii.theme';
 import { utils } from './utils.theme';
 
 const { config, createTheme, css, getCssText, globalCss, styled, theme } =
@@ -12,6 +14,8 @@ const { config, createTheme, css, getCssText, globalCss, styled, theme } =
       space,
       fontSizes,
       fontWeights,
+      radii,
+      sizes,
     },
     utils,
   });
