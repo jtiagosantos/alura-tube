@@ -17,6 +17,8 @@ import { favorites } from '@/mock/favorites.mock';
 const Main = styled('main', {
   p: '0 12px',
   mt: '$8',
+  maxW: '1300px',
+  mx: 'auto',
 });
 
 const FavoritesSection = styled('section', {
