@@ -18,7 +18,7 @@ export const utils = {
   }),
   mx: (value: Stitches.PropertyValue<'margin'>) => ({
     marginLeft: value,
-    marginright: value,
+    marginRight: value,
   }),
   my: (value: Stitches.PropertyValue<'margin'>) => ({
     marginTop: value,
@@ -41,7 +41,7 @@ export const utils = {
   }),
   px: (value: Stitches.PropertyValue<'padding'>) => ({
     paddingLeft: value,
-    paddingright: value,
+    paddingRight: value,
   }),
   py: (value: Stitches.PropertyValue<'padding'>) => ({
     paddingTop: value,
