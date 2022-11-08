@@ -1,4 +1,4 @@
-import { styled } from '../styles/theme';
+import { styled } from '../theme';
 
 export const Banner = styled('div', {
   w: '100%',

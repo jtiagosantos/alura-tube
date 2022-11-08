@@ -1,4 +1,4 @@
-import { styled } from '../styles/theme';
+import { styled } from '../theme';
 import { Avatar } from './avatar.component';
 
 const FavoriteGroup = styled('section', {

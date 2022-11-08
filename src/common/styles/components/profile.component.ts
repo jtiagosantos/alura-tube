@@ -1,4 +1,4 @@
-import { styled } from '../styles/theme';
+import { styled } from '../theme';
 
 const ProfileRoot = styled('div', {
   display: 'flex',

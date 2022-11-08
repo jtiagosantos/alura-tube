@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { styled } from '../styles/theme';
+import { styled } from '../theme';
 
 const VideoRoot = styled('div', {
   maxW: '210px',
