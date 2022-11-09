@@ -29,6 +29,21 @@ const globalStyles = globalCss({
     boxSizing: 'border-box',
     fontFamily: 'Poppins',
     transition: 'all 0.4s ease',
+
+    '::-webkit-scrollbar': {
+      w: '8px',
+      h: '8px',
+    },
+
+    '::-webkit-scrollbar-track': {
+      bg: '$background_tertiary',
+      br: '5px',
+    },
+
+    '::-webkit-scrollbar-thumb': {
+      bg: '$text_color_secondary',
+      br: '5px',
+    },
   },
   'html, body': {
     backgroundColor: '$background_primary',
