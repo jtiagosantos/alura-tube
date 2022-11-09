@@ -3,6 +3,7 @@ import { styled } from '../theme';
 const HeaderRoot = styled('header', {
   width: '$full',
   bg: '$background_secondary',
+  py: '58px',
 });
 
 const HeaderTop = styled('div', {
@@ -11,6 +12,9 @@ const HeaderTop = styled('div', {
   alignItems: 'center',
   justifyContent: 'space-between',
   p: '$3',
+  position: 'fixed',
+  top: 0,
+  bg: '$background_primary',
 });
 
 const HeaderBottom = styled('div', {
