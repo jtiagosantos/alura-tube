@@ -1,4 +1,4 @@
-import { useState, useId } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
 import { styled } from '@/common/styles/theme';
@@ -11,7 +11,7 @@ import {
   Playlist,
   Favorite,
 } from '@/common/styles/components';
-import { InputSearch } from '@/common/components';
+import { InputSearch, ThemeSwitch } from '@/common/components';
 
 import { playlists } from '@/mock/playlists.mock';
 import { favorites } from '@/mock/favorites.mock';
@@ -55,6 +55,7 @@ export default function Home() {
             value={search}
             onChange={({ target }) => setSearch(target.value)}
           />
+          <ThemeSwitch />
         </Header.Top>
         <Banner />
         <Header.Bottom>
