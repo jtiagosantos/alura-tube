@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 
 import { styled } from '@/common/styles/theme';
 import {
@@ -12,6 +13,9 @@ import {
   Favorite,
 } from '@/common/styles/components';
 import { InputSearch, ThemeSwitch } from '@/common/components';
+
+import logoLightImage from '@/../public/assets/logo-light.svg';
+import logoDarkImage from '@/../public/assets/logo-dark.svg';
 
 import { playlists } from '@/mock/playlists.mock';
 import { favorites } from '@/mock/favorites.mock';
@@ -39,17 +43,15 @@ export default function Home() {
   ];
 
   const [search, setSearch] = useState('');
+  const { theme } = useTheme();
+
+  const logo = theme === 'light' ? logoLightImage : logoDarkImage;
 
   return (
     <>
       <Header.Root>
         <Header.Top>
-          <Image
-            src="/assets/logo.png"
-            width={120}
-            height={24}
-            alt="AluraTube logo"
-          />
+          <Image src={logo} width={120} height={24} alt="AluraTube logo" />
           <InputSearch
             placeholder="Pesquisar"
             value={search}
