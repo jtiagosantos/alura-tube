@@ -7,6 +7,7 @@ const light = {
   text_color_secondary: '#666666',
   sun_icon_color: '#f2ea0a',
   moon_icon_color: '#B5B4AC',
+  overlay: 'rgba(0, 0, 0, 0.5)',
 };
 
 const dark = {
@@ -18,6 +19,7 @@ const dark = {
   text_color_secondary: '#FFFFFF',
   sun_icon_color: '#f2ea0a',
   moon_icon_color: '#B5B4AC',
+  overlay: 'rgba(0, 0, 0, 0.5)',
 };
 
 export const colors = {
