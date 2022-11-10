@@ -7,6 +7,11 @@ const VideoRoot = styled('div', {
   display: 'flex',
   flexDir: 'column',
   alignItems: 'flex-start',
+  cursor: 'pointer',
+
+  '&:hover': {
+    filter: 'brightness(0.7)',
+  },
 });
 
 const VideoThumbnail = styled(Image, {
