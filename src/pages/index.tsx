@@ -11,7 +11,7 @@ import {
   Playlist,
   Favorite,
 } from '@/common/styles/components';
-import { InputSearch, ThemeSwitch } from '@/common/components';
+import { InputSearch, ThemeSwitch, VideoDialog } from '@/common/components';
 
 import { playlists } from '@/mock/playlists.mock';
 import { favorites } from '@/mock/favorites.mock';
@@ -39,6 +39,16 @@ export default function Home() {
   ];
 
   const [search, setSearch] = useState('');
+  const [selectedVideo, setSeletedVideo] = useState('');
+
+  const handleOpenVideo = (url: string) => {
+    const videoId = url.split('=')[1];
+    const videoEmbedLink = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+    setSeletedVideo(videoEmbedLink);
+  };
+
+  const handleCloseVideo = () => setSeletedVideo('');
 
   return (
     <>
@@ -87,7 +97,9 @@ export default function Home() {
                     video.title.toLowerCase().includes(search.toLowerCase()),
                   )
                   .map((video) => (
-                    <Video.Root key={video.url}>
+                    <Video.Root
+                      key={video.url}
+                      onClick={() => handleOpenVideo(video.url)}>
                       <Video.Thumbnail
                         src={video.thumb}
                         width={210}
@@ -119,6 +131,8 @@ export default function Home() {
           </Favorite.Group>
         </FavoritesSection>
       </Main>
+
+      <VideoDialog src={selectedVideo} onClose={handleCloseVideo} />
     </>
   );
 }
