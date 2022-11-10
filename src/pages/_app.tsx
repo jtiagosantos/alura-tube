@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 
 import { globalStyles } from '@/common/styles/theme';
-import { darkTheme } from '@/common/styles/theme';
+import { lightTheme, darkTheme } from '@/common/styles/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   globalStyles();
@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
       defaultTheme="light"
       value={{
         dark: darkTheme.className,
-        light: 'light',
+        light: lightTheme.className,
       }}>
       <Component {...pageProps} />
     </ThemeProvider>
