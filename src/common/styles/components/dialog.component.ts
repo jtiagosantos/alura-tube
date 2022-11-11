@@ -9,9 +9,7 @@ const DialogOverlay = styled(PrimitiveDialog.Overlay, {
 });
 
 const DialogContent = styled(PrimitiveDialog.Content, {
-  maxW: '500px',
   w: '$full',
-  h: '400px',
   bg: '$background_tertiary',
   br: '8px',
   position: 'fixed',
@@ -19,7 +17,10 @@ const DialogContent = styled(PrimitiveDialog.Content, {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   p: '$2',
-  pt: '$9',
+});
+
+const DialogTitle = styled(PrimitiveDialog.Title, {
+  fontSize: '1.2rem',
 });
 
 const DialogCloseButton = styled('button', {
@@ -40,6 +41,7 @@ export const Dialog = {
   Portal: PrimitiveDialog.Portal,
   Overlay: DialogOverlay,
   Content: DialogContent,
+  Title: DialogTitle,
   Close: PrimitiveDialog.Close,
   CloseButton: DialogCloseButton,
 };
