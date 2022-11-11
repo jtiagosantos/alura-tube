@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { X } from 'phosphor-react';
+import * as Tabs from '@radix-ui/react-tabs';
 
-import { styled } from '@/common/styles/theme';
 import {
   Header,
   Banner,
@@ -13,6 +13,7 @@ import {
   Favorite,
   Dialog,
   Form,
+  Iframe,
 } from '@/common/styles/components';
 import {
   InputSearch,
@@ -20,6 +21,12 @@ import {
   VideoDialog,
   AddNewVideoButton,
 } from '@/common/components';
+
+import { useForm } from '@/common/hooks/use-form.hook';
+
+import { getVideoEmbedLink } from '@/common/utils/get-video-embed-link.util';
+
+import { styled } from '@/common/styles/theme';
 
 import { playlists } from '@/mock/playlists.mock';
 import { favorites } from '@/mock/favorites.mock';
@@ -41,20 +48,48 @@ const FavoritesTitle = styled('h3', {
   mb: '$4',
 });
 
+const TabsRoot = styled(Tabs.Root, {
+  w: '$full',
+  display: 'flex',
+  flexDirection: 'column',
+  mt: '$2',
+});
+
+const TabsList = styled(Tabs.List, {
+  display: 'flex',
+  gap: '$4',
+  mb: '$8',
+});
+
+const TabsTrigger = styled(Tabs.Trigger, {
+  fontSize: '1rem',
+  color: '$text_color_secondary',
+  border: 'none',
+  bg: 'transparent',
+  borderBottom: '2px solid transparent',
+  pb: '$1',
+
+  '&[data-state="active"]': {
+    borderColor: '$text_color_secondary',
+  },
+});
+
 export default function Home() {
   const playlistsName = Object.keys(playlists) as [
     'jogos' | 'front-end' | 'back-end',
   ];
 
+  const { values, handleChange, clearFields } = useForm({ title: '', url: '' });
+
   const [search, setSearch] = useState('');
   const [selectedVideo, setSeletedVideo] = useState('');
   const [isOpenAddNewVideoModal, setIsOpenAddNewVideoModal] = useState(false);
+  const [videoPreviewURL, setVideoPreviewURL] = useState('');
 
   const handleOpenVideo = (url: string) => {
-    const videoId = url.split('=')[1];
-    const videoEmbedLink = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    const videoEmbedLink = getVideoEmbedLink(url);
 
-    setSeletedVideo(videoEmbedLink);
+    videoEmbedLink && setSeletedVideo(videoEmbedLink);
   };
 
   const handleCloseVideo = () => setSeletedVideo('');
@@ -62,6 +97,24 @@ export default function Home() {
   const handleOpenAddNewVideoModal = () => setIsOpenAddNewVideoModal(true);
 
   const handleCloseAddNewVideoModal = () => setIsOpenAddNewVideoModal(false);
+
+  const handleSubmitForm = (event: FormEvent) => {
+    event.preventDefault();
+
+    console.log({ values });
+
+    clearFields();
+  };
+
+  useEffect(() => {
+    const videoEmbedLink = getVideoEmbedLink(values.url);
+
+    if (videoEmbedLink) {
+      setVideoPreviewURL(videoEmbedLink);
+    } else {
+      setVideoPreviewURL('');
+    }
+  }, [values.url]);
 
   return (
     <>
@@ -150,27 +203,50 @@ export default function Home() {
       <Dialog.Root open={isOpenAddNewVideoModal}>
         <Dialog.Portal>
           <Dialog.Overlay />
-          <Dialog.Content css={{ maxW: '400px', px: '$4', pb: '$4' }}>
-            <Dialog.Title>Adicionar vídeo</Dialog.Title>
-            <Form.Root>
-              <Form.Input>
-                <Form.Label htmlFor="video-title">Título do vídeo</Form.Label>
-                <Form.Field
-                  type="text"
-                  placeholder="Título do vídeo aqui"
-                  id="video-title"
-                />
-              </Form.Input>
-              <Form.Input>
-                <Form.Label htmlFor="video-url">URL do vídeo</Form.Label>
-                <Form.Field
-                  type="text"
-                  placeholder="URL do vídeo aqui"
-                  id="video-url"
-                />
-              </Form.Input>
-              <Form.SubmitButton type="submit">Adicionar</Form.SubmitButton>
-            </Form.Root>
+          <Dialog.Content
+            css={{ maxW: '420px', h: '305px', px: '$4', pb: '$4' }}>
+            <TabsRoot defaultValue="add-new-video-tab">
+              <TabsList>
+                <TabsTrigger value="add-new-video-tab">
+                  Adicionar vídeo
+                </TabsTrigger>
+                <TabsTrigger value="preview-tab">Pré-visualização</TabsTrigger>
+              </TabsList>
+              <Tabs.Content value="add-new-video-tab">
+                <Form.Root onSubmit={handleSubmitForm}>
+                  <Form.Input>
+                    <Form.Label htmlFor="video-title">
+                      Título do vídeo
+                    </Form.Label>
+                    <Form.Field
+                      type="text"
+                      placeholder="Título do vídeo aqui"
+                      id="video-title"
+                      name="title"
+                      value={values.title}
+                      onChange={handleChange}
+                      autoComplete="none"
+                    />
+                  </Form.Input>
+                  <Form.Input>
+                    <Form.Label htmlFor="video-url">URL do vídeo</Form.Label>
+                    <Form.Field
+                      type="text"
+                      placeholder="URL do vídeo aqui"
+                      id="video-url"
+                      name="url"
+                      value={values.url}
+                      onChange={handleChange}
+                      autoComplete="none"
+                    />
+                  </Form.Input>
+                  <Form.SubmitButton>Adicionar</Form.SubmitButton>
+                </Form.Root>
+              </Tabs.Content>
+              <Tabs.Content value="preview-tab">
+                <Iframe src={videoPreviewURL} css={{ h: '210px' }} />
+              </Tabs.Content>
+            </TabsRoot>
             <Dialog.Close asChild>
               <Dialog.CloseButton onClick={handleCloseAddNewVideoModal}>
                 <X size={24} weight="bold" />
