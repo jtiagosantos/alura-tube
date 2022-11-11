@@ -7,3 +7,4 @@ export * from './playlist.component';
 export * from './favorite.component';
 export * from './switch.component';
 export * from './dialog.component';
+export * from './form.component';
