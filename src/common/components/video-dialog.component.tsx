@@ -1,14 +1,6 @@
 import { FC } from 'react';
 import { X } from 'phosphor-react';
-import { Dialog } from '../styles/components';
-import { styled } from '../styles/theme';
-
-const Iframe = styled('iframe', {
-  w: '$full',
-  h: '$full',
-  br: '8px',
-  border: 'none',
-});
+import { Dialog, Iframe } from '../styles/components';
 
 type TVideoDialogProps = FC<{
   src: string;
