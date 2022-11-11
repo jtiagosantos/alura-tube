@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from 'react';
 
 type TInitialValues = Record<string, any>;
 
-type TEvent = ChangeEvent<HTMLInputElement>;
+type TEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
-export const useForm = (initialValues: TInitialValues) => {
-  const [values, setValues] = useState(initialValues);
+export const useForm = <T = TInitialValues>(initialValues: TInitialValues) => {
+  const [values, setValues] = useState(initialValues as T);
 
   const handleChange = ({ target }: TEvent) => {
     const { value, name } = target;
@@ -17,7 +17,7 @@ export const useForm = (initialValues: TInitialValues) => {
   };
 
   const clearFields = () => {
-    setValues(initialValues);
+    setValues(initialValues as T);
   };
 
   return {
