@@ -74,12 +74,20 @@ const TabsTrigger = styled(Tabs.Trigger, {
   },
 });
 
+type TForm = {
+  title: string;
+  url: string;
+};
+
 export default function Home() {
   const playlistsName = Object.keys(playlists) as [
     'jogos' | 'front-end' | 'back-end',
   ];
 
-  const { values, handleChange, clearFields } = useForm({ title: '', url: '' });
+  const { values, handleChange, clearFields } = useForm<TForm>({
+    title: '',
+    url: '',
+  });
 
   const [search, setSearch] = useState('');
   const [selectedVideo, setSeletedVideo] = useState('');
