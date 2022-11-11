@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import { X } from 'phosphor-react';
 
 import { styled } from '@/common/styles/theme';
 import {
@@ -10,8 +11,15 @@ import {
   Video,
   Playlist,
   Favorite,
+  Dialog,
+  Form,
 } from '@/common/styles/components';
-import { InputSearch, ThemeSwitch, VideoDialog } from '@/common/components';
+import {
+  InputSearch,
+  ThemeSwitch,
+  VideoDialog,
+  AddNewVideoButton,
+} from '@/common/components';
 
 import { playlists } from '@/mock/playlists.mock';
 import { favorites } from '@/mock/favorites.mock';
@@ -40,6 +48,7 @@ export default function Home() {
 
   const [search, setSearch] = useState('');
   const [selectedVideo, setSeletedVideo] = useState('');
+  const [isOpenAddNewVideoModal, setIsOpenAddNewVideoModal] = useState(false);
 
   const handleOpenVideo = (url: string) => {
     const videoId = url.split('=')[1];
@@ -49,6 +58,10 @@ export default function Home() {
   };
 
   const handleCloseVideo = () => setSeletedVideo('');
+
+  const handleOpenAddNewVideoModal = () => setIsOpenAddNewVideoModal(true);
+
+  const handleCloseAddNewVideoModal = () => setIsOpenAddNewVideoModal(false);
 
   return (
     <>
@@ -133,6 +146,41 @@ export default function Home() {
       </Main>
 
       <VideoDialog src={selectedVideo} onClose={handleCloseVideo} />
+
+      <Dialog.Root open={isOpenAddNewVideoModal}>
+        <Dialog.Portal>
+          <Dialog.Overlay />
+          <Dialog.Content css={{ maxW: '400px', px: '$4', pb: '$4' }}>
+            <Dialog.Title>Adicionar vídeo</Dialog.Title>
+            <Form.Root>
+              <Form.Input>
+                <Form.Label htmlFor="video-title">Título do vídeo</Form.Label>
+                <Form.Field
+                  type="text"
+                  placeholder="Título do vídeo aqui"
+                  id="video-title"
+                />
+              </Form.Input>
+              <Form.Input>
+                <Form.Label htmlFor="video-url">URL do vídeo</Form.Label>
+                <Form.Field
+                  type="text"
+                  placeholder="URL do vídeo aqui"
+                  id="video-url"
+                />
+              </Form.Input>
+              <Form.SubmitButton type="submit">Adicionar</Form.SubmitButton>
+            </Form.Root>
+            <Dialog.Close asChild>
+              <Dialog.CloseButton onClick={handleCloseAddNewVideoModal}>
+                <X size={24} weight="bold" />
+              </Dialog.CloseButton>
+            </Dialog.Close>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      <AddNewVideoButton onClick={handleOpenAddNewVideoModal} />
     </>
   );
 }
