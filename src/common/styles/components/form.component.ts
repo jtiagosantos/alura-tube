@@ -6,7 +6,6 @@ const FormRoot = styled('form', {
   flexDir: 'column',
   alignItems: 'center',
   gap: '16px',
-  marginTop: '$8',
 });
 
 const FormInput = styled('div', {
