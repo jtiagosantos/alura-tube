@@ -12,6 +12,7 @@ const { light, dark } = colors;
 const { config, createTheme, css, getCssText, globalCss, styled, theme } =
   createStitches({
     theme: {
+      colors: light,
       space,
       fontSizes,
       fontWeights,
@@ -52,10 +53,6 @@ const globalStyles = globalCss({
   },
 });
 
-const lightTheme = createTheme({
-  colors: light,
-});
-
 const darkTheme = createTheme({
   colors: dark,
 });
@@ -68,6 +65,5 @@ export {
   styled,
   theme,
   globalStyles,
-  lightTheme,
   darkTheme,
 };
