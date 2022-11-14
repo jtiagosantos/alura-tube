@@ -2,7 +2,9 @@ import { ChangeEvent, useState } from 'react';
 
 type TInitialValues = Record<string, any>;
 
-type TEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+type TEvent = ChangeEvent<
+  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+>;
 
 export const useForm = <T = TInitialValues>(initialValues: TInitialValues) => {
   const [values, setValues] = useState(initialValues as T);
