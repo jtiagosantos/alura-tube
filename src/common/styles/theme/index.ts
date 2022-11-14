@@ -49,7 +49,6 @@ const globalStyles = globalCss({
     backgroundColor: '$background_primary',
     color: '$text_color_primary',
     minHeight: '100vh',
-    mb: '$2',
   },
 });
 
