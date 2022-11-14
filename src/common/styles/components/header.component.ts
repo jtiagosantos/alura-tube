@@ -15,6 +15,7 @@ const HeaderTop = styled('div', {
   position: 'fixed',
   top: 0,
   bg: '$background_primary',
+  zIndex: 2,
 });
 
 const HeaderBottom = styled('div', {

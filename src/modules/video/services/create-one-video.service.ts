@@ -1,11 +1,11 @@
 import { supabase } from '@/common/lib/supabase/client';
-import { ICreateOneVideo } from '../interfaces/create-one-video.interface';
-import { VideoEntity } from '../entities/video.entity';
 import { ETables } from '@/common/enums/tables.enum';
+import { VideoEntity } from '../entities/video.entity';
+import type { ICreateOneVideo } from '../interfaces/create-one-video.interface';
 
 export class CreateOneVideoService {
   public static async execute(input: ICreateOneVideo) {
-    const { title, url, thumbnail, playlist_id } = input;
+    const { title, url, thumbnail, playlistId, userId } = input;
     const { VIDEOS } = ETables;
 
     const { data } = await supabase
@@ -14,7 +14,8 @@ export class CreateOneVideoService {
         title,
         url,
         thumbnail,
-        playlist_id,
+        playlist_id: playlistId,
+        user_id: userId,
       })
       .select<'*', VideoEntity>();
 
