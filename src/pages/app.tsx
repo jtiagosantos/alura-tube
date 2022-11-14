@@ -115,7 +115,7 @@ const Select = styled('select', {
 
 const Option = styled('option', {
   w: '$full',
-  bg: '#222222',
+  bg: '$background_secondary',
 });
 
 const SignOutButton = styled('button', {
