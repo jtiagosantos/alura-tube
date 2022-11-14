@@ -12,7 +12,8 @@ export const VideoDialog: TVideoDialogProps = ({ src, onClose }) => {
     <Dialog.Root open={!!src}>
       <Dialog.Portal>
         <Dialog.Overlay />
-        <Dialog.Content css={{ maxW: '500px', h: '400px', pt: '$9' }}>
+        <Dialog.Content
+          css={{ maxW: '500px', h: '350px', pt: '$9', px: '$4', pb: '$4' }}>
           <Iframe src={src} />
           <Dialog.Close asChild>
             <Dialog.CloseButton onClick={onClose}>
