@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { GetServerSideProps } from 'next';
-import { X, SignOut } from 'phosphor-react';
-import { useSession, signOut } from 'next-auth/react';
 import * as Tabs from '@radix-ui/react-tabs';
+import Link from 'next/link';
+import Image from 'next/image';
+import { X, SignOut } from 'phosphor-react';
+import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { useSession, signOut } from 'next-auth/react';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 
@@ -471,22 +471,29 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     },
   });
 
-  const playlists = await FindManyPlaylistsService.execute();
-  const videos = await FindManyVideosService.execute();
+  const playlists = await FindManyPlaylistsService.execute({
+    userId: session.databaseUserId,
+  });
+  const videos = await FindManyVideosService.execute({
+    userId: session.databaseUserId,
+  });
 
   let data = {} as Record<string, VideoEntity[]>;
+  let indexes: number[] = [];
 
   playlists?.forEach((playlist) => {
     const videosByPlaylist = videos?.filter((video, index) => {
       const condition = video.playlist_id === playlist.id;
 
-      condition && videos.splice(index, 1);
+      condition && indexes.push(index);
       return condition;
     });
     data = {
       ...data,
       [playlist.name]: videosByPlaylist,
     };
+    indexes.forEach((index) => videos?.splice(index, 1));
+    indexes = [];
   });
 
   const favorites = await FindManyFavoritesServices.execute({
