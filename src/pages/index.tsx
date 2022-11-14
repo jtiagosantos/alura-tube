@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { X } from 'phosphor-react';
 import * as Tabs from '@radix-ui/react-tabs';
@@ -29,6 +30,7 @@ import { CreateOneVideoService } from '@/modules/video/services/create-one-video
 import { CreateOnePlaylistService } from '@/modules/playlist/services/create-one-playlist.service';
 import { FindManyPlaylistsService } from '@/modules/playlist/services/find-many-playlists.service';
 import { FindManyVideosService } from '@/modules/video/services/find-many-videos.service';
+import { FindManyFavoritesServices } from '@/modules/favorite/services/find-many-favorites.service';
 
 import { useForm } from '@/common/hooks/use-form.hook';
 import { useDisclosure } from '@/common/hooks/use-disclosure.hook';
@@ -38,6 +40,7 @@ import { getVideoThumbnailLink } from '@/common/utils/get-video-thumbnail-link.u
 
 import { VideoEntity } from '@/modules/video/entities/video.entity';
 import { PlaylistEntity } from '@/modules/playlist/entities/playlist.entity';
+import { TFavorite } from '@/modules/favorite/types/favorite.type';
 
 import { styled } from '@/common/styles/theme';
 
@@ -114,6 +117,7 @@ type TForm = {
 type THomeServerProps = {
   playlists: PlaylistEntity[];
   data: Record<string, VideoEntity[]>;
+  favorites: TFavorite[];
 };
 
 export default function Home(props: THomeServerProps) {
@@ -271,16 +275,18 @@ export default function Home(props: THomeServerProps) {
         <FavoritesSection>
           <FavoritesTitle>AluraTubes favoritos</FavoritesTitle>
           <Favorite.Group>
-            {favorites.map((favorite) => (
-              <Favorite.Root key={favorite.name}>
-                <Favorite.Avatar
-                  src={favorite.image}
-                  width={80}
-                  height={80}
-                  alt={favorite.name}
-                />
-                <Favorite.Name>{favorite.name}</Favorite.Name>
-              </Favorite.Root>
+            {props.favorites.map((favorite) => (
+              <Link key={favorite.id} href={favorite.html_url} target="_blank">
+                <Favorite.Root>
+                  <Favorite.Avatar
+                    src={favorite.avatar_url}
+                    width={80}
+                    height={80}
+                    alt={favorite.login}
+                  />
+                  <Favorite.Name>{favorite.login}</Favorite.Name>
+                </Favorite.Root>
+              </Link>
             ))}
           </Favorite.Group>
         </FavoritesSection>
@@ -427,10 +433,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   });
 
+  const favorites = await FindManyFavoritesServices.execute({
+    where: {
+      username: 'jtiagosantos',
+    },
+  });
+
   return {
     props: {
       playlists,
       data,
+      favorites,
     },
   };
 };
