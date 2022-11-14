@@ -16,11 +16,16 @@ const DialogContent = styled(PrimitiveDialog.Content, {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  p: '$2',
 });
 
 const DialogTitle = styled(PrimitiveDialog.Title, {
-  fontSize: '1.2rem',
+  fontSize: '1rem',
+  fontWeight: '$normal',
+  color: '$text_color_secondary',
+  border: 'none',
+  bg: 'transparent',
+  borderBottom: '2px solid transparent',
+  pb: '$1',
 });
 
 const DialogCloseButton = styled('button', {
