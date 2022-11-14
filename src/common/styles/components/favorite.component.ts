@@ -30,7 +30,7 @@ const FavoriteAvatar = styled(Avatar, {});
 const FavoriteName = styled('p', {
   maxW: '70px',
   color: '$text_color_primary',
-  'text-overflow': 'ellipsis',
+  textOverflow: 'ellipsis',
   overflow: 'hidden',
 });
 
