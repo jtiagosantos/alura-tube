@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { IFindManyFavorites } from '../interfaces/find-many-favorites.interface';
 import { TFavorite } from '../types/favorite.type';
+import type { IFindManyFavorites } from '../interfaces/find-many-favorites.interface';
 
 export class FindManyFavoritesServices {
   public static async execute({ where }: IFindManyFavorites) {
