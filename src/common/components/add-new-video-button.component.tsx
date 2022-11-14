@@ -6,7 +6,7 @@ const Button = styled('button', {
   w: '60px',
   h: '60px',
   bg: '$button_color_primary',
-  color: '$background_secondary',
+  color: '$text_color_primary',
   border: 'none',
   br: '$rounded',
   display: 'flex',
