@@ -63,7 +63,7 @@ export default function Home() {
             Para ter acesso às funcionalidades do AluraTube, faça login clicando
             no botão abaixo:
           </Text>
-          <AuthButton onClick={() => signIn()}>Entrar</AuthButton>
+          <AuthButton onClick={() => signIn('github')}>Entrar</AuthButton>
         </Glassmorphism>
       </Banner>
     </Container>
